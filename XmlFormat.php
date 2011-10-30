@@ -21,7 +21,7 @@ class XmlFormat extends Format {
   public function toString () {
     $xml = new SimpleXmlElement('<xml/>');
     if (is_array($this->data)) {
-      static::traverseElement($xml, $this->data);
+      $this->traverseElement($xml, $this->data);
     }
     return $xml->asXML();
   }
@@ -29,7 +29,7 @@ class XmlFormat extends Format {
   protected function traverseElement ($xml, $data) {
     foreach ($data as $key => $element) {
       if (is_array($element)) {
-        static::traverseElement($xml->addChild($key), $element);
+        $this->traverseElement($xml->addChild($key), $element);
       } else {
         $xml->addChild($key, $element);
       }
