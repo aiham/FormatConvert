@@ -5,5 +5,4 @@ A tool for converting files from and to a variety of file formats or character s
 To Do:
 - GUI
 - XmlFormat fromString
-- CsvFormat fromString, toString
 - Character encoding
