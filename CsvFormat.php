@@ -4,9 +4,20 @@ require_once 'Format.php';
 
 class CsvFormat extends Format {
 
-  protected static $from = array('xml', 'json', 'serialize'), $label = 'csv';
+  protected static
+    $from = array('xml', 'json', 'serialize'),
+    $label = 'csv';
 
-  public static $quote = '"', $field_separator = ',', $row_separator = "\n";
+  public static
+    $use_headers = false,
+    $quote = '"',
+    $field_separator = ',',
+    $row_separator = "\n";
+
+  public function __construct ($data, $use_headers = false) {
+    parent::__construct($data);
+    $this->use_headers = $use_headers;
+  }
 
   public static function fromString ($string, $use_headers = false) {
 
@@ -151,11 +162,15 @@ class CsvFormat extends Format {
       $rows = null;
     }
 
-    return is_null($rows) ? false : new CsvFormat($rows);
+    return is_null($rows) ? false : new CsvFormat($rows, $use_headers);
 
   }
 
-  public function toString () {
+  public function toString ($use_headers = null) {
+
+    if (is_null($use_headers)) {
+      $use_headers = $this->use_headers;
+    }
 
     $headers = array();
 
@@ -166,6 +181,15 @@ class CsvFormat extends Format {
     $headers = array_values($headers);
 
     $formatted_rows = array();
+
+    if ($use_headers) {
+      $ordered = array();
+      foreach ($headers as $header) {
+        $value = '"' . str_replace('"', '""', $header) . '"';
+        array_push($ordered, $value);
+      }
+      array_push($formatted_rows, implode(',', $ordered));
+    }
 
     foreach ($this->data as $row) {
       $ordered = array();
@@ -178,7 +202,7 @@ class CsvFormat extends Format {
 
     unset($headers, $row, $ordered, $header, $value);
 
-    return implode("\n", $formatted_rows);
+    return implode("\r\n", $formatted_rows);
 
   }
 
