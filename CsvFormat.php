@@ -4,7 +4,7 @@ require_once 'Format.php';
 
 class CsvFormat extends Format {
 
-  protected static $from = array('xml', 'json'), $label = 'csv';
+  protected static $from = array('xml', 'json', 'serialize'), $label = 'csv';
 
   public $quote = '"', $field_separator = ',', $row_separator = "\n";
 

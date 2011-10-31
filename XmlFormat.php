@@ -4,7 +4,7 @@ require_once 'Format.php';
 
 class XmlFormat extends Format {
 
-  protected static $from = array('json', 'csv'), $label = 'xml';
+  protected static $from = array('json', 'csv', 'serialize'), $label = 'xml';
 
   public static function fromString ($string) {
     libxml_use_internal_errors(true);

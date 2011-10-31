@@ -4,7 +4,7 @@ require_once 'Format.php';
 
 class JsonFormat extends Format {
 
-  protected static $from = array('xml', 'csv'), $label = 'json';
+  protected static $from = array('xml', 'csv', 'serialize'), $label = 'json';
 
   public static function fromString ($string) {
     $data = json_decode($string, true);
