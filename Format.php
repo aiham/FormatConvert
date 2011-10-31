@@ -21,8 +21,8 @@ abstract class Format {
     return in_array($from, static::$from);
   }
 
-  public function toString ();
-  public static function fromString ($string);
+  abstract public function toString ();
+  abstract public static function fromString ($string);
 
   public function convert ($to) {
     $class = ucfirst(strtolower($to)) . 'Format';
