@@ -6,23 +6,17 @@ class CsvFormat extends Format {
 
   protected static $from = array('xml', 'json', 'serialize'), $label = 'csv';
 
-  public $quote = '"', $field_separator = ',', $row_separator = "\n";
+  public static $quote = '"', $field_separator = ',', $row_separator = "\n";
 
-  protected $use_headers = false;
-
-  public static function setUseHeaders ($use_headers) {
-    $this->use_headers = !!$use_headers;
-  }
-
-  public static function fromString ($string) {
+  public static function fromString ($string, $use_headers = false) {
 
     // Convert all \r\n and \r to \n for consistency
     $data = str_replace("\r", "\n", str_replace("\r\n", "\n", $string));
     
-    $quote = $this->quote;
-    $field_separator = $this->field_separator;
-    $row_separator = $this->row_separator;
-    $get_headers = $use_headers = $this->use_headers;
+    $quote = static::$quote;
+    $field_separator = static::$field_separator;
+    $row_separator = static::$row_separator;
+    $get_headers = $use_headers;
 
     $headers = array();
     $row = array();
