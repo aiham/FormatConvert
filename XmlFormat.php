@@ -18,7 +18,7 @@ class XmlFormat extends Format {
     return new XmlFormat($data);
   }
 
-  public function toString ($format = false) {
+  public function toString ($format = true) {
     $xml = new SimpleXmlElement('<root/>');
     if (is_array($this->data)) {
       $this->traverseElement($xml, $this->data);
