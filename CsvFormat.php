@@ -45,7 +45,7 @@ class CsvFormat extends Format {
       
           if ($field !== '') {
             // Double quote in unquoted field
-            throw new Exception();
+            throw new Exception('double quote in unquoted field');
           }
           
           $j = $i + 1;
@@ -54,8 +54,8 @@ class CsvFormat extends Format {
             $j = strpos($data, $quote, $j);
 
             if ($j === false) {
-              // Missing send double quote of a pair
-              throw new Exception();
+              // Missing second double quote of a pair
+              throw new Exception('missing second double quote of a pair');
             }
       
             if ($j < $k) {
@@ -71,7 +71,7 @@ class CsvFormat extends Format {
                 $next !== $row_separator
               ) {
                 // Invalid character after closing double quote
-                throw new Exception();
+                throw new Exception('invalid character after closing double quote');
               }
             }
 
